@@ -1,7 +1,8 @@
 int numBalls = 12;
 float spring = 0.05;
-float gravity = 0.03;
+float gravity = 3;
 float friction = -0.9;
+float elasticity = 1;
 Ball[] balls = new Ball[numBalls];
 
 void setup() {
@@ -20,4 +21,5 @@ void draw() {
     ball.move();
     ball.display();  
   }
+  System.out.println(mouseX + "," + mouseY);
 }
