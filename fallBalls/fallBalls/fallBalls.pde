@@ -4,7 +4,7 @@ float gravity = 0.3;
 float friction = -0.9;
 float elasticity = 0;
 Ball[] balls = new Ball[numBalls];
-Button bom = new Button(300, 340, 300, 340, "Bread");
+//Button bom = new Button(300, 340, 300, 340, "Bread");
 final int WIDTH=640;
 final int HEIGHT=640;
 void setup() {
@@ -26,8 +26,8 @@ void draw() {
     ball.display();  
   }
   bom.show();
-  if(mousePressed){
-    print(bom.pressed());
-  }
+  //if(mousePressed){
+  //  print(bom.pressed());
+  //}
   
 }
