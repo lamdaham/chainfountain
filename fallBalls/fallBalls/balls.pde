@@ -61,6 +61,8 @@ class Ball {
   }
   
   void display() {
+    fill(255);
+    stroke(0);
     ellipse(x, y, radius*2, radius*2);
   }
 }
