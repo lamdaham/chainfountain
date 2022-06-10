@@ -8,7 +8,6 @@ class Button{
    this.y1 = min(y1, y2);
    this.y2 = max(y1, y2);
    this.name = name;
-   print(x1, x2, y1, y2);
   }
   
   boolean pressed(){
