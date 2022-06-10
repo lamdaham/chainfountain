@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Ball {
   
   float x, y;
@@ -5,35 +7,17 @@ class Ball {
   float vx = 0;
   float vy = 0;
   int id;
-  Ball[] others;
+  double mass;
  
-  Ball(float xin, float yin, float din, int idin, Ball[] oin) {
+  Ball(float xin, float yin, float din, int idin) {
     x = xin;
     y = yin;
     radius = din;
     id = idin;
-    others = oin;
+    mass = radius *radius / 20;
   } 
   
-  void collide() {
-    for (int i = id + 1; i < numBalls; i++) {
-      float dx = others[i].x - x;
-      float dy = others[i].y - y;
-      float distance = sqrt(dx*dx + dy*dy);
-      float minDist = others[i].radius + radius;
-      if (distance < minDist) { 
-        float angle = atan2(dy, dx);
-        float targetX = x + cos(angle) * minDist;
-        float targetY = y + sin(angle) * minDist;
-        float ax = (targetX - others[i].x) * spring;
-        float ay = (targetY - others[i].y) * spring;
-        vx -= ax;
-        vy -= ay;
-        others[i].vx += ax;
-        others[i].vy += ay;
-      }
-    }   
-  }
+  
   
   void move() {
     x += vx;
