@@ -41,18 +41,18 @@ class Ball {
     if (x<radius) {
       vx  = -1 * vx;
       x=radius;
-    } else if (x > 640-radius) {
+    } else if (x > WIDTH-radius) {
       vx  = -1 * vx;
-      x=(width-radius);
+      x=(WIDTH-radius);
     }
     
-    if (y< 640 - radius) {
+    if (y< HEIGHT - radius) {
       vy += gravity;
       y += vy;
     }
-     if (y > 640 - radius) {
+     if (y > HEIGHT - radius) {
         vy = -1 * vy;
-        y =height-radius;
+        y =HEIGHT-radius;
      } else if (y<radius) {
         vy = -1 * vy;
         y=radius;

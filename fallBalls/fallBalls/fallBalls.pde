@@ -5,11 +5,12 @@ float friction = -0.9;
 float elasticity = 0;
 Ball[] balls = new Ball[numBalls];
 Button bom = new Button(300, 340, 300, 340, "Bread");
-
+final int WIDTH=640;
+final int HEIGHT=640;
 void setup() {
-  size(640, 640);
+  size(1080, 1080);
   for (int i = 0; i < numBalls; i++) {
-    balls[i] = new Ball(random(width), random(height), random(30, 40), i, balls);
+    balls[i] = new Ball(random(WIDTH), random(HEIGHT), random(30, 40), i, balls);
   }
   noStroke();
   fill(255, 204);
@@ -18,7 +19,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  rect(0, 0, 640, 640);
   for (Ball ball : balls) {
     ball.collide();
     ball.move();
