@@ -1,17 +1,23 @@
 class Button{
-  float x1, x2, y1, y2;
+  float xpos, ypos, xLeng, yLeng;
   String name;
   
-  Button(float x1, float x2, float y1, float y2, String name){
-   this.x1 = min(x1, x2);
-   this.x2 = max(x1,x2);
-   this.y1 = min(y1, y2);
-   this.y2 = max(y1, y2);
+  Button(float xpos, float ypos, float xLeng, float yLeng, String name){
+   this.xpos = xpos;
+   this.ypos = ypos;
+   this.xLeng = xLeng;
+   this.yLeng = yLeng;
    this.name = name;
   }
   
   boolean pressed(){
-    if(mousePressed == true && (x1 < mouseX && mouseX < x2) && (y1 < mouseY && mouseY < y2)){
+    //if(mousePressed){
+
+    //  print(name, xpos-(xLeng/2) < mouseX , mouseX < xpos+(xLeng/2) , (ypos-(yLeng/2)) < mouseY , mouseY < (ypos+(yLeng/2)) );
+    //  print("\n");
+    //}
+
+    if(mousePressed == true && (xpos < mouseX && mouseX < (xpos+xLeng)) && (ypos < mouseY && mouseY < (ypos+yLeng))){
       
       return true;
       
@@ -21,13 +27,13 @@ class Button{
   }
   
   void show(){
-    fill(255);
-    stroke(255);
-    rect(x1, y1, x2-x1, y2-y1);
+    fill(150);
+    stroke(0);
+    rect(xpos, ypos, xLeng, yLeng);
     fill(0);
     textAlign(CENTER);
-    textSize(12);
-    text(name, x1+((x2-x1)/2), y1+((y2-y1)/2)+6);
+    textSize(FONTSIZE);
+    text(name, xpos+xLeng/2, ypos+yLeng/2+FONTSIZE/2);
   }
 }
   

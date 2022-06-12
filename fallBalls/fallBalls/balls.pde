@@ -21,12 +21,12 @@ class Ball {
       float dy = others[i].y - y;
       float distance = sqrt(dx*dx + dy*dy);
       float minDist = others[i].radius + radius;
-      if (distance < minDist) { 
-        float angle = atan2(dy, dx);
+      if (distance < minDist) { //if touchie
+        float angle = atan2(dy, dx);// finds angle between
         float targetX = x + cos(angle) * minDist;
         float targetY = y + sin(angle) * minDist;
-        float ax = (targetX - others[i].x) * spring;
-        float ay = (targetY - others[i].y) * spring;
+        float ax = (targetX - others[i].x);
+        float ay = (targetY - others[i].y);
         vx -= ax;
         vy -= ay;
         others[i].vx += ax;
@@ -36,6 +36,7 @@ class Ball {
   }
   
   void move() {
+    
     x += vx;
     y += vy;
     if (x<radius) {
