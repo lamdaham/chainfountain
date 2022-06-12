@@ -69,15 +69,20 @@ void addBall(int place){
   float rand1 = random(WIDTH-80)+40;
   float rand2 = random(HEIGHT/4)+40;
   float rand3 = random(30,40);
-  //boolean ok = false;
-  //while(!ok){
-    
-  //  for(Ball i : balls){
-  //    float dist = sqrt((rand1-i.x)^2 + (rand2-i.y)**2);
-  //    if(dist < i.radius+rand3){
-  //      ok = false;
-  //    }
-  //  }
-  //}
+  boolean ok = false;
+  while(!ok){
+    ok = true;
+    rand1 = random(WIDTH-80)+40;
+    rand2 = random(HEIGHT/4)+40;
+    rand3 = random(30,40);
+    print(place, rand1, rand2, "\n");
+    for(int j = 0; j < place; j++){
+      Ball i = balls[j];
+      double dist = Math.sqrt(Math.pow(rand1-i.x, 2) + Math.pow(rand2-i.y,2));
+      if(dist < i.radius+rand3){
+        ok = false;
+      }
+    }
+  }
   balls[place] = new Ball(rand1, rand2, rand3, place, balls);
 }
