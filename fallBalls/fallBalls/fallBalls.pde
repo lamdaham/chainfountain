@@ -5,13 +5,9 @@ float gravity = 0.3;
 float friction = -0.9;
 float elasticity = 0;
 
-ArrayList<Ball> ballArray = new ArrayList();
-
-
-Ball[] balls = new Ball[numBalls];
+ArrayList<Ball> ballArray = new ArrayList<Ball>();
 final int WIDTH=640;
 final int HEIGHT=640;
-<<<<<<< HEAD
 boolean start = false;
 Button ballAdd = new Button(800, 100, 120, 30, "Add Ball");
 Button ballRemove = new Button(800, 150, 120, 30, "Remove Ball");
@@ -21,18 +17,8 @@ int buttonCounter = 50;
 void setup() {
   size(1080, 1080);
   for (int i = 0; i < numBalls; i++) {
-    addBall(i);
-=======
-
-void setup() {
-  size(1080, 1080);
-  for (int i = 0; i < numBalls; i++) {
-    ballArray.add(new Ball(random(width), random(height), random(30, 40), i));
->>>>>>> 8a6a3d944ac2f11d43120bf77c9cdb9e43e2a444
+    addBall();
   }
-  start=false;
-  
-  
 }
 
 
@@ -73,42 +59,37 @@ void collide() {
 
 
 void draw() {
-<<<<<<< HEAD
   fill(255);
   rect(0, 0, 640, 640);
   if(buttonCounter > -10){
     buttonCounter--;
   }
-  for (Ball ball : balls) {
+  collide();
+  for (Ball ball : ballArray) {
     if(start){
-      ball.collide();
       ball.move();
     }
-=======
-  background(0);
-  collide();
-  rect(0, 0, 640, 640);
-  for (Ball ball : ballArray) {
-  
-    ball.move();
->>>>>>> 8a6a3d944ac2f11d43120bf77c9cdb9e43e2a444
-    ball.display();  
+    ball.display();
+    ball.id = ballArray.indexOf(ball);
   }
-    
+  
   ballAdd.show();
   ballRemove.show();
   startButton.show();
   if(ballAdd.pressed() ){
     if(buttonCounter <= 0){
       buttonCounter = 15;
-      numBalls++;
+      addBall();
     }
   }
   if(ballRemove.pressed()){
     if(buttonCounter <= 0){
       buttonCounter = 15;
-      numBalls--;
+      ballArray.remove(ballArray.size()-1);
     
+    }
+    if(ballArray.size()<=1){
+      addBall();
     }
   }
   if(startButton.pressed()){
@@ -123,7 +104,7 @@ void draw() {
     
   }
 }
-void addBall(int place){
+void addBall(){
   float rand1 = random(WIDTH-80)+40;
   float rand2 = random(HEIGHT/4)+40;
   float rand3 = random(30,40);
@@ -133,14 +114,13 @@ void addBall(int place){
     rand1 = random(WIDTH-80)+40;
     rand2 = random(HEIGHT/4)+40;
     rand3 = random(30,40);
-    print(place, rand1, rand2, "\n");
-    for(int j = 0; j < place; j++){
-      Ball i = balls[j];
+    for(Ball i : ballArray){
       double dist = Math.sqrt(Math.pow(rand1-i.x, 2) + Math.pow(rand2-i.y,2));
       if(dist < i.radius+rand3){
         ok = false;
       }
     }
   }
-  balls[place] = new Ball(rand1, rand2, rand3, place, balls);
+  Ball newBall = new Ball(rand1, rand2, rand3, ballArray.size()-1);
+  ballArray.add(newBall);
 }
