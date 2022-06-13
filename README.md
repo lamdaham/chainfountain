@@ -10,7 +10,7 @@ To create this simulation, we use our knowledge of collisions to figure out how 
 We like to give users a bit more control of the simulation, so we gave the users the ability to move a ball in the simulation. Users can use the left and right arrow keys to move the black ball left and right.
 
 ## Instructions
-Press run program to run the program. 
-Click a ball and use the buttons on the right to edit the properties of that ball. 
-Left and right arrow keys controls the black ball.  
-Universal properties apply to all balls, and are located above the ball properties.  
+Press run program to run the program. \
+Click a ball and use the buttons on the right to edit the properties of that ball. \
+Left and right arrow keys controls the black ball.  \
+Universal properties apply to all balls, and are located above the ball properties.  \
