@@ -1,21 +1,28 @@
 
 int numBalls = 12;
-float spring = 0.05;
 float gravity = 0.3;
-float friction = -0.9;
 float elasticity = 1;
 
 ArrayList<Ball> ballArray = new ArrayList<Ball>();
 final int WIDTH=640;
 final int HEIGHT=640;
 boolean start = false;
-Button ballAdd = new Button(800, 100, 120, 30, "Add Ball");
-Button ballRemove = new Button(800, 150, 120, 30, "Remove Ball");
-Button startButton = new Button(800, 200, 120, 30, "Start Simulation");
+Button ballAdd = new Button(660, 100, 120, 30, "Add Ball");
+Button ballRemove = new Button(830, 100, 120, 30, "Remove Ball");
+Button startButton = new Button(660, 20, 290, 60, "Start Simulation");
+Button plusGravity = new Button(660, 150, 120, 30, "Increase Gravity");
+Button minusGravity = new Button(830, 150, 120, 30, "Decrease Gravity");
+Button increaseMass = new Button(660, 200, 120, 30, "Increase Ball Mass");
+Button decreaseMass = new Button(830, 200, 120, 30, "Decrease Ball Mass");
+Button increasexVel = new Button(660, 250, 120, 30, "Increase x-velocity");
+Button decreasexVel = new Button(830, 250, 120, 30, "Decrease x-velocity");
+Button increaseyVel = new Button(660, 300, 120, 30, "Increase y-velocity");
+Button decreaseyVel = new Button(830, 300, 120, 30, "Decrease y-velocity");
 final int FONTSIZE = 12;
 int buttonCounter = 50;
+Ball selectedBall;
 void setup() {
-  size(1080, 1080);
+  size(1000, 650);
   for (int i = 0; i < numBalls; i++) {
     addBall();
   }
@@ -61,6 +68,7 @@ void collide() {
 
 
 void draw() {
+  background(200);
   fill(255);
   rect(0, 0, 640, 640);
   if(buttonCounter > -10){
@@ -71,6 +79,23 @@ void draw() {
     if(start){
       ball.move();
     }
+    else{
+      double dist = Math.sqrt(Math.pow(mouseX-ball.x, 2) + Math.pow(mouseY-ball.y,2));
+      if(mousePressed && dist < ball.radius&& buttonCounter<=0){
+        buttonCounter = 15;
+        if(selectedBall == ball){
+          selectedBall.colors = (int)random(100, 200);
+          selectedBall = null;
+        }
+        else{
+          if(selectedBall!= null){
+            selectedBall.colors = (int)random(100, 200);
+          }
+          selectedBall = ball;
+          selectedBall.colors = 255;
+        }
+      }
+    }
     ball.display();
     ball.id = ballArray.indexOf(ball);
   }
@@ -78,21 +103,35 @@ void draw() {
   ballAdd.show();
   ballRemove.show();
   startButton.show();
+  plusGravity.show();
+  minusGravity.show();
+  if(selectedBall != null){//////////////////HERE IS THE BUTTON BUTTONS
+    increaseMass.show();
+    decreaseMass.show();
+    increasexVel.show();
+    decreasexVel.show();
+    increaseyVel.show();
+    decreaseyVel.show();
+  }
   if(ballAdd.pressed() ){
     if(buttonCounter <= 0){
       buttonCounter = 15;
       addBall();
+      numBalls++;
     }
   }
   if(ballRemove.pressed()){
     if(buttonCounter <= 0){
       buttonCounter = 15;
-      ballArray.remove(ballArray.size()-1);
+      if(ballArray.size() >= 2){
+        ballArray.remove(ballArray.size()-1);
+        numBalls--;
+      }
     
     }
-    if(ballArray.size()<=1){
-      addBall();
-    }
+    //if(ballArray.size()<=1){
+    //  addBall();
+    //}
   }
   if(startButton.pressed()){
     if(buttonCounter <= 0){
@@ -104,6 +143,14 @@ void draw() {
     //print(mouseX, mouseY, startButton.xpos, startButton.ypos, startButton.pressed());
     //print("\n");
     
+  }
+  textAlign(LEFT);
+  text("Gravity is " + gravity*32.7 + " meters per second", 650, 500);
+  text("There are " + numBalls + " balls in the simulation", 650, 480);
+  if(selectedBall != null){
+    text("Ball mass is " + (int)selectedBall.mass + " kilograms", 650, 540);
+    text("Ball's horizontal velocity is " + selectedBall.vx + "meters per second", 650, 560);
+    text("Ball's vertical velocity is " + selectedBall.vy + "meters per second", 650, 580);
   }
 }
 void addBall(){
@@ -123,7 +170,7 @@ void addBall(){
       }
     }
   }
-  Ball newBall = new Ball(rand1, rand2, rand3, ballArray.size()-1);
+  Ball newBall = new Ball(rand1, rand2, rand3, ballArray.size()-1, (int)random(100,200));
   ballArray.add(newBall);
 }
 
