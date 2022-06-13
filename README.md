@@ -13,4 +13,4 @@ We like to give users a bit more control of the simulation, so we gave the users
 Press run program to run the program. \
 Click a ball and use the buttons on the right to edit the properties of that ball. \
 Left and right arrow keys controls the black ball.  \
-Universal properties apply to all balls, and are located above the ball properties.  \
+Universal properties apply to all balls, and are located above the ball properties.
