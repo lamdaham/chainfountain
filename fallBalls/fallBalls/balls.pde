@@ -9,6 +9,8 @@ class Ball {
   int id;
   double mass;
   int colors;
+  
+  arrow varrow = new arrow(x, y, 10* Math.sqrt(vx * vx + vy * vy), -1*Math.atan2(vy, vx));
  
   Ball(float xin, float yin, float din, int idin) {
     x = xin;
@@ -52,13 +54,14 @@ class Ball {
         vy = -1 * vy;
         y=radius;
      }
-    
+    varrow = new arrow(x, y, 10*Math.sqrt(vx * vx + vy * vy), Math.atan2(vy, vx));
   }
   
   void display() {
     fill(colors);
     stroke(0);
     ellipse(x, y, radius*2, radius*2);
+    varrow.display();
   }
   
   
