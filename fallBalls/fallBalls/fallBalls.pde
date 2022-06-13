@@ -3,7 +3,7 @@ int numBalls = 12;
 float spring = 0.05;
 float gravity = 0.3;
 float friction = -0.9;
-float elasticity = 0;
+float elasticity = 1;
 
 ArrayList<Ball> ballArray = new ArrayList<Ball>();
 final int WIDTH=640;
@@ -19,6 +19,8 @@ void setup() {
   for (int i = 0; i < numBalls; i++) {
     addBall();
   }
+  Ball ball = ballArray.get(0);
+  ball.colors = 0;
 }
 
 
@@ -47,10 +49,10 @@ void collide() {
           double collisionA = 2 * BallB.mass / combindedMass;
           double collisionB = 2 * BallA.mass / combindedMass;
           
-          BallA.vx += collisionA * xCollision;
-          BallA.vy += collisionA * yCollision;
-          BallB.vx -= collisionB * xCollision;
-          BallB.vy -= collisionB * yCollision;
+          BallA.vx += collisionA * xCollision * elasticity;
+          BallA.vy += collisionA * yCollision * elasticity;
+          BallB.vx -= collisionB * xCollision * elasticity;
+          BallB.vy -= collisionB * yCollision * elasticity;
         }
       }
     }
@@ -123,4 +125,21 @@ void addBall(){
   }
   Ball newBall = new Ball(rand1, rand2, rand3, ballArray.size()-1);
   ballArray.add(newBall);
+}
+
+void keyPressed() {
+  Ball ball = ballArray.get(0);
+  if (keyCode == LEFT) {
+    if (ball.vx > -30 || ball.vx == 0) {
+      ball.vx -= 20;
+    }
+  }
+  
+  if (keyCode == RIGHT) {
+    if (ball.vx < 30 || ball.vx == 0) {
+      ball.vx += 20;
+    }
+  }
+  
+
 }

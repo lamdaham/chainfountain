@@ -8,6 +8,7 @@ class Ball {
   float vy = 0;
   int id;
   double mass;
+  int colors;
  
   Ball(float xin, float yin, float din, int idin) {
     x = xin;
@@ -15,6 +16,16 @@ class Ball {
     radius = din;
     id = idin;
     mass = radius *radius / 20;
+    colors = 255;
+  }
+  
+  Ball(float xin, float yin, float din, int idin, int c) {
+    x = xin;
+    y = yin;
+    radius = din;
+    id = idin;
+    mass = radius *radius / 20;
+    colors = c;
   } 
   
   
@@ -45,8 +56,10 @@ class Ball {
   }
   
   void display() {
-    fill(255);
+    fill(colors);
     stroke(0);
     ellipse(x, y, radius*2, radius*2);
   }
+  
+  
 }
