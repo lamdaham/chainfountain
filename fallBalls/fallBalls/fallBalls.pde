@@ -9,7 +9,7 @@ final int HEIGHT=640;
 boolean start = false;
 Button ballAdd = new Button(660, 100, 120, 30, "Add Ball");
 Button ballRemove = new Button(830, 100, 120, 30, "Remove Ball");
-Button startButton = new Button(660, 20, 290, 60, "Start Simulation");
+Button startButton = new Button(660, 20, 290, 60, "Start/Stop Simulation");
 Button plusGravity = new Button(660, 150, 120, 30, "Increase Gravity");
 Button minusGravity = new Button(830, 150, 120, 30, "Decrease Gravity");
 Button increaseMass = new Button(660, 350, 120, 30, "Increase Ball Mass");
@@ -109,6 +109,18 @@ void draw() {
   minusGravity.show();
   elastic.show();
   inelastic.show();
+  if(plusGravity.pressed() ){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      gravity+=0.01;
+    }
+  }
+  if(minusGravity.pressed()){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      gravity+=-0.01;
+    }
+  }
   if(elastic.pressed() ){
     if(buttonCounter <= 0){
       buttonCounter = 15;
@@ -211,6 +223,7 @@ void draw() {
     text("Ball's horizontal velocity is " + selectedBall.vx + "meters per second", 650, 580);
     text("Ball's vertical velocity is " + -selectedBall.vy + "meters per second", 650, 600);
   }
+  text("You can use the left and right arrow keys to control the black ball", 650, 400);
 }
 void addBall(){
   float rand1 = random(WIDTH-80)+40;
