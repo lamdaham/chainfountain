@@ -12,12 +12,14 @@ Button ballRemove = new Button(830, 100, 120, 30, "Remove Ball");
 Button startButton = new Button(660, 20, 290, 60, "Start Simulation");
 Button plusGravity = new Button(660, 150, 120, 30, "Increase Gravity");
 Button minusGravity = new Button(830, 150, 120, 30, "Decrease Gravity");
-Button increaseMass = new Button(660, 200, 120, 30, "Increase Ball Mass");
-Button decreaseMass = new Button(830, 200, 120, 30, "Decrease Ball Mass");
+Button increaseMass = new Button(660, 350, 120, 30, "Increase Ball Mass");
+Button decreaseMass = new Button(830, 350, 120, 30, "Decrease Ball Mass");
 Button increasexVel = new Button(660, 250, 120, 30, "Increase x-velocity");
 Button decreasexVel = new Button(830, 250, 120, 30, "Decrease x-velocity");
 Button increaseyVel = new Button(660, 300, 120, 30, "Increase y-velocity");
 Button decreaseyVel = new Button(830, 300, 120, 30, "Decrease y-velocity");
+Button elastic = new Button(660, 200, 120, 30, "Elastic collision");
+Button inelastic = new Button(830, 200, 120, 30, "Inelastic collision");
 final int FONTSIZE = 12;
 int buttonCounter = 50;
 Ball selectedBall;
@@ -105,6 +107,20 @@ void draw() {
   startButton.show();
   plusGravity.show();
   minusGravity.show();
+  elastic.show();
+  inelastic.show();
+  if(elastic.pressed() ){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      elasticity = 1;
+    }
+  }
+  if(inelastic.pressed() ){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      elasticity = 0.7;
+    }
+  }
   if(selectedBall != null){//////////////////HERE IS THE BUTTON BUTTONS
     increaseMass.show();
     decreaseMass.show();
@@ -112,6 +128,42 @@ void draw() {
     decreasexVel.show();
     increaseyVel.show();
     decreaseyVel.show();
+  }
+  if(increaseyVel.pressed()&& selectedBall!= null){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      selectedBall.vy+=-1;
+    }
+  }
+  if(decreaseyVel.pressed()&& selectedBall!= null){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      selectedBall.vy+=+1;
+    }
+  }
+  if(decreasexVel.pressed()&& selectedBall!= null){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      selectedBall.vx+=-1;
+    }
+  }
+  if(increasexVel.pressed()&& selectedBall!= null){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      selectedBall.vx+=1;
+    }
+  }
+  if(decreaseMass.pressed()&& selectedBall!= null){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      selectedBall.mass+=-1;
+    }
+  }
+  if(increaseMass.pressed()&& selectedBall!= null){
+    if(buttonCounter <= 0){
+      buttonCounter = 15;
+      selectedBall.mass+=1;
+    }
   }
   if(ballAdd.pressed() ){
     if(buttonCounter <= 0){
@@ -147,10 +199,17 @@ void draw() {
   textAlign(LEFT);
   text("Gravity is " + gravity*32.7 + " meters per second", 650, 500);
   text("There are " + numBalls + " balls in the simulation", 650, 480);
+  if(elasticity==1){
+    text("Collisions are elastic", 650, 520);
+  }
+  if(elasticity==0.7){
+    text("Collisions are inelastic", 650, 520);
+  }
   if(selectedBall != null){
-    text("Ball mass is " + (int)selectedBall.mass + " kilograms", 650, 540);
-    text("Ball's horizontal velocity is " + selectedBall.vx + "meters per second", 650, 560);
-    text("Ball's vertical velocity is " + selectedBall.vy + "meters per second", 650, 580);
+    text("Ball mass is " + (int)selectedBall.mass + " kilograms", 650, 560);
+    
+    text("Ball's horizontal velocity is " + selectedBall.vx + "meters per second", 650, 580);
+    text("Ball's vertical velocity is " + -selectedBall.vy + "meters per second", 650, 600);
   }
 }
 void addBall(){
